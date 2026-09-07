@@ -6,11 +6,20 @@ import { ParticleEngine } from './particles.js';
 import { CustomAudioPlayer } from './audioPlayer.js';
 
 function initApp() {
-  // Initialize Particle Engine
-  const particles = new ParticleEngine('particle-canvas');
+  let particles = null;
+  let audioPlayer = null;
 
-  // Initialize Custom Audio Player
-  const audioPlayer = new CustomAudioPlayer();
+  try {
+    particles = new ParticleEngine('particle-canvas');
+  } catch (err) {
+    console.warn('Particle engine initialization notice:', err);
+  }
+
+  try {
+    audioPlayer = new CustomAudioPlayer();
+  } catch (err) {
+    console.warn('Audio player initialization notice:', err);
+  }
 
   // Navigation State
   let currentPageIndex = 1;
@@ -42,7 +51,7 @@ function initApp() {
     const targetPage = pages[targetPageNum];
 
     // If navigating away from Page 2, pause all playing audio
-    if (currentPageIndex === 2) {
+    if (currentPageIndex === 2 && audioPlayer && typeof audioPlayer.stopAll === 'function') {
       audioPlayer.stopAll();
     }
 
@@ -54,14 +63,11 @@ function initApp() {
       }, 500);
     }
 
-    // Enter target page animation
-    setTimeout(() => {
-      if (targetPage) {
-        targetPage.classList.add('active');
-        // Scroll page card to top smoothly on mobile
-        targetPage.scrollTop = 0;
-      }
-    }, 150);
+    // Enter target page animation immediately
+    if (targetPage) {
+      targetPage.classList.add('active');
+      targetPage.scrollTop = 0;
+    }
 
     // Update Dots indicator
     Object.keys(dots).forEach((pageNumStr) => {
@@ -79,7 +85,9 @@ function initApp() {
 
     // Trigger Page 3 Final Celebration Effects
     if (targetPageNum === 3) {
-      particles.setCelebrationMode(true);
+      if (particles && typeof particles.setCelebrationMode === 'function') {
+        particles.setCelebrationMode(true);
+      }
       const finalCard = document.getElementById('final-card');
       if (finalCard) {
         setTimeout(() => {
@@ -87,37 +95,26 @@ function initApp() {
         }, 300);
       }
     } else {
-      particles.setCelebrationMode(false);
+      if (particles && typeof particles.setCelebrationMode === 'function') {
+        particles.setCelebrationMode(false);
+      }
     }
   }
 
-  // Reliable navigation button binding for mobile touch and desktop click
-  function bindNavButton(btnElement, targetPage) {
-    if (!btnElement) return;
-
-    let touchHandled = false;
-
-    btnElement.addEventListener('touchend', (e) => {
+  // Cross-platform standard click event listeners for navigation
+  if (btnToPage2) {
+    btnToPage2.addEventListener('click', (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      touchHandled = true;
-      goToPage(targetPage);
-      setTimeout(() => {
-        touchHandled = false;
-      }, 400);
-    }, { passive: false });
-
-    btnElement.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (!touchHandled) {
-        goToPage(targetPage);
-      }
+      goToPage(2);
     });
   }
 
-  bindNavButton(btnToPage2, 2);
-  bindNavButton(btnToPage3, 3);
+  if (btnToPage3) {
+    btnToPage3.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToPage(3);
+    });
+  }
 
   // Navigation dots click & touch listeners
   Object.keys(dots).forEach((pageNumStr) => {
@@ -125,7 +122,10 @@ function initApp() {
     const dot = dots[pageNum];
     if (dot) {
       dot.style.cursor = 'pointer';
-      bindNavButton(dot, pageNum);
+      dot.addEventListener('click', (e) => {
+        e.preventDefault();
+        goToPage(pageNum);
+      });
     }
   });
 
@@ -142,7 +142,7 @@ function initApp() {
     }
   });
 
-  // Touch swipe support for mobile browsing (excluding interactive elements)
+  // Touch swipe support for mobile browsing (excluding interactive controls)
   let touchStartX = 0;
   let touchStartY = 0;
   let touchEndX = 0;
