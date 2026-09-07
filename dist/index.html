@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>You've Got This 🤍 | Exam Motivation</title>
+
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="A personal, calming, and emotional motivation space for your exams. Take a breath, listen to voice notes, and believe in yourself.">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <script type="module" crossorigin src="/assets/index-qX0N4fsQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DEA8youD.css">
+</head>
+<body>
+  <!-- Canvas for floating sparkles and background particle effect -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Background Ambient Glow Orbs -->
+  <div class="ambient-glow orb-1"></div>
+  <div class="ambient-glow orb-2"></div>
+  <div class="ambient-glow orb-3"></div>
+
+  <!-- Page Indicator Dots Header -->
+  <header class="app-header">
+    <div class="nav-dots">
+      <span class="dot active" id="dot-1" aria-label="Page 1"></span>
+      <span class="dot" id="dot-2" aria-label="Page 2"></span>
+      <span class="dot" id="dot-3" aria-label="Page 3"></span>
+    </div>
+  </header>
+
+  <!-- Main Viewport Container -->
+  <main class="pages-container">
+
+    <!-- PAGE 1: DON'T WORRY, YOU'VE GOT THIS -->
+    <section id="page-1" class="page active">
+      <div class="glass-card page-card">
+        <div class="card-badge">
+          <span class="badge-sparkle">✨</span>
+          <span>Take a deep breath</span>
+        </div>
+
+        <h1 class="main-heading fade-in-delay-1">
+          Hey, don't worry about the exams. <span class="heart-icon">🤍</span>
+        </h1>
+
+        <div class="message-body">
+          <p class="fade-in-delay-2 leader-text">
+            I know exams can feel stressful, and sometimes it feels like there's so much to do and not enough time. But take a breath. You don't have to figure everything out all at once.
+          </p>
+
+          <p class="fade-in-delay-3 accent-paragraph">
+            Just focus on the next chapter. The next topic. The next hour. One small step at a time.
+          </p>
+
+          <p class="fade-in-delay-4 secondary-text">
+            You've handled difficult things before, and you'll handle this too. You don't need to be perfect—you just need to keep going.
+          </p>
+        </div>
+
+        <!-- Prominent Quote Card -->
+        <div class="quote-banner fade-in-delay-5">
+          <div class="quote-sparkles-left">✨</div>
+          <p class="quote-text">
+            Study. Take a break. Believe in yourself. Repeat. ✨
+          </p>
+          <div class="quote-sparkles-right">✨</div>
+        </div>
+
+        <div class="action-footer fade-in-delay-6">
+          <button id="btn-to-page-2" class="btn btn-primary shadow-glow">
+            <span>I need some motivation</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"></path>
+              <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PAGE 2: A LITTLE SOMETHING FROM ME -->
+    <section id="page-2" class="page">
+      <div class="glass-card page-card">
+        <div class="card-badge badge-lavender">
+          <span class="badge-sparkle">🎧</span>
+          <span>Personal Audio Notes</span>
+        </div>
+
+        <h1 class="main-heading page-2-heading">
+          When studying gets difficult...
+        </h1>
+        
+        <p class="page-subtitle">
+          Take a small break and listen to these.
+        </p>
+
+        <!-- Audio Player Cards Container -->
+        <div class="audio-cards-container">
+          
+          <!-- Voice Message 1 Card -->
+          <div class="audio-card" id="card-audio-1" data-audio-src="/audio/v-m-1.mp3" data-title="Voice Message 1">
+            <div class="audio-card-header">
+              <div class="audio-info">
+                <span class="mic-badge">🎙</span>
+                <div>
+                  <h3 class="audio-title">Voice Message 1</h3>
+                  <span class="audio-status">Ready to play</span>
+                </div>
+              </div>
+              <button class="play-btn" id="play-btn-1" aria-label="Play Voice Message 1">
+                <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <svg class="pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                  <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Animated Sound Wave Visualization -->
+            <div class="sound-wave-bars">
+              <span class="bar bar-1"></span>
+              <span class="bar bar-2"></span>
+              <span class="bar bar-3"></span>
+              <span class="bar bar-4"></span>
+              <span class="bar bar-5"></span>
+              <span class="bar bar-6"></span>
+              <span class="bar bar-7"></span>
+              <span class="bar bar-8"></span>
+            </div>
+
+            <!-- Custom Progress Bar -->
+            <div class="audio-progress-wrapper">
+              <div class="progress-bar-container" id="progress-container-1">
+                <div class="progress-bar-fill" id="progress-fill-1"></div>
+                <div class="progress-thumb" id="progress-thumb-1"></div>
+              </div>
+              <div class="time-display">
+                <span class="time-current" id="time-current-1">0:00</span>
+                <span class="time-duration" id="time-duration-1">0:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Voice Message 2 Card -->
+          <div class="audio-card" id="card-audio-2" data-audio-src="/audio/v-m-2.mp3" data-title="Voice Message 2">
+            <div class="audio-card-header">
+              <div class="audio-info">
+                <span class="mic-badge">🎙</span>
+                <div>
+                  <h3 class="audio-title">Voice Message 2</h3>
+                  <span class="audio-status">Ready to play</span>
+                </div>
+              </div>
+              <button class="play-btn" id="play-btn-2" aria-label="Play Voice Message 2">
+                <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <svg class="pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                  <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                </svg>
+              </button>
+            </div>
+
+            <div class="sound-wave-bars">
+              <span class="bar bar-1"></span>
+              <span class="bar bar-2"></span>
+              <span class="bar bar-3"></span>
+              <span class="bar bar-4"></span>
+              <span class="bar bar-5"></span>
+              <span class="bar bar-6"></span>
+              <span class="bar bar-7"></span>
+              <span class="bar bar-8"></span>
+            </div>
+
+            <div class="audio-progress-wrapper">
+              <div class="progress-bar-container" id="progress-container-2">
+                <div class="progress-bar-fill" id="progress-fill-2"></div>
+                <div class="progress-thumb" id="progress-thumb-2"></div>
+              </div>
+              <div class="time-display">
+                <span class="time-current" id="time-current-2">0:00</span>
+                <span class="time-duration" id="time-duration-2">0:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Voice Message 3 Card -->
+          <div class="audio-card" id="card-audio-3" data-audio-src="/audio/v-m-3.mp3" data-title="Voice Message 3">
+            <div class="audio-card-header">
+              <div class="audio-info">
+                <span class="mic-badge">🎙</span>
+                <div>
+                  <h3 class="audio-title">Voice Message 3</h3>
+                  <span class="audio-status">Ready to play</span>
+                </div>
+              </div>
+              <button class="play-btn" id="play-btn-3" aria-label="Play Voice Message 3">
+                <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <svg class="pause-icon hidden" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+                  <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+                </svg>
+              </button>
+            </div>
+
+            <div class="sound-wave-bars">
+              <span class="bar bar-1"></span>
+              <span class="bar bar-2"></span>
+              <span class="bar bar-3"></span>
+              <span class="bar bar-4"></span>
+              <span class="bar bar-5"></span>
+              <span class="bar bar-6"></span>
+              <span class="bar bar-7"></span>
+              <span class="bar bar-8"></span>
+            </div>
+
+            <div class="audio-progress-wrapper">
+              <div class="progress-bar-container" id="progress-container-3">
+                <div class="progress-bar-fill" id="progress-fill-3"></div>
+                <div class="progress-thumb" id="progress-thumb-3"></div>
+              </div>
+              <div class="time-display">
+                <span class="time-current" id="time-current-3">0:00</span>
+                <span class="time-duration" id="time-duration-3">0:00</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="audio-footer-note">
+          And now... back to work. You've got this. <span class="heart-icon">🤍</span>
+        </p>
+
+        <div class="action-footer">
+          <button id="btn-to-page-3" class="btn btn-secondary shadow-glow-lavender">
+            <span>One last thing</span>
+            <span class="btn-sparkle">✨</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PAGE 3: ALL THE BEST -->
+    <section id="page-3" class="page">
+      <div class="glass-card page-card page-3-card" id="final-card">
+        
+        <div class="golden-crown-badge">
+          <span class="crown-sparkle">🌟</span>
+          <span>Final Push</span>
+        </div>
+
+        <h1 class="main-heading final-heading">
+          Now go show those exams who's boss. <span class="boss-emoji">😤✨</span>
+        </h1>
+
+        <div class="message-body">
+          <p class="final-paragraph-1">
+            You've prepared. You're capable. And you're probably more ready than you think.
+          </p>
+
+          <p class="final-paragraph-2">
+            Don't let one difficult question make you doubt everything you know. Take your time, stay calm, and trust yourself.
+          </p>
+        </div>
+
+        <!-- Prominent Belief Statement -->
+        <div class="prominent-belief-box">
+          <div class="glow-border"></div>
+          <h2 class="belief-text">
+            You've got this. I believe in you. <span class="heart-icon">🤍</span>
+          </h2>
+        </div>
+
+        <!-- Grand Celebration Banner -->
+        <div class="grand-wishes-banner">
+          <span class="banner-sparkle left">📚</span>
+          <h3 class="wishes-title">ALL THE BEST FOR YOUR EXAMS! ✨</h3>
+          <span class="banner-sparkle right">✨</span>
+        </div>
+
+        <p class="final-motivational-line">
+          Give it your best. That's all you need to do.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
