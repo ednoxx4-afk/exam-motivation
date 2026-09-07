@@ -91,29 +91,41 @@ function initApp() {
     }
   }
 
-  // Event Listeners for Navigation Buttons
-  if (btnToPage2) {
-    btnToPage2.addEventListener('click', (e) => {
+  // Reliable navigation button binding for mobile touch and desktop click
+  function bindNavButton(btnElement, targetPage) {
+    if (!btnElement) return;
+
+    let touchHandled = false;
+
+    btnElement.addEventListener('touchend', (e) => {
       e.preventDefault();
-      goToPage(2);
+      e.stopPropagation();
+      touchHandled = true;
+      goToPage(targetPage);
+      setTimeout(() => {
+        touchHandled = false;
+      }, 400);
+    }, { passive: false });
+
+    btnElement.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!touchHandled) {
+        goToPage(targetPage);
+      }
     });
   }
 
-  if (btnToPage3) {
-    btnToPage3.addEventListener('click', (e) => {
-      e.preventDefault();
-      goToPage(3);
-    });
-  }
+  bindNavButton(btnToPage2, 2);
+  bindNavButton(btnToPage3, 3);
 
-  // Navigation dots click listeners
+  // Navigation dots click & touch listeners
   Object.keys(dots).forEach((pageNumStr) => {
     const pageNum = parseInt(pageNumStr, 10);
-    if (dots[pageNum]) {
-      dots[pageNum].style.cursor = 'pointer';
-      dots[pageNum].addEventListener('click', () => {
-        goToPage(pageNum);
-      });
+    const dot = dots[pageNum];
+    if (dot) {
+      dot.style.cursor = 'pointer';
+      bindNavButton(dot, pageNum);
     }
   });
 
@@ -130,34 +142,53 @@ function initApp() {
     }
   });
 
-  // Touch swipe support for smooth mobile browsing
+  // Touch swipe support for mobile browsing (excluding interactive elements)
   let touchStartX = 0;
+  let touchStartY = 0;
   let touchEndX = 0;
+  let touchEndY = 0;
 
   document.addEventListener('touchstart', (e) => {
+    if (e.target.closest('button, .btn, .play-btn, .progress-bar-container, .nav-dots, .dot, a, input')) {
+      touchStartX = 0;
+      touchStartY = 0;
+      return;
+    }
     if (e.changedTouches && e.changedTouches.length > 0) {
-      touchStartX = e.changedTouches[0].screenX;
+      touchStartX = e.changedTouches[0].clientX;
+      touchStartY = e.changedTouches[0].clientY;
     }
   }, { passive: true });
 
   document.addEventListener('touchend', (e) => {
+    if (touchStartX === 0 && touchStartY === 0) return;
+    if (e.target.closest('button, .btn, .play-btn, .progress-bar-container, .nav-dots, .dot, a, input')) {
+      return;
+    }
     if (e.changedTouches && e.changedTouches.length > 0) {
-      touchEndX = e.changedTouches[0].screenX;
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
       handleSwipe();
     }
   }, { passive: true });
 
   function handleSwipe() {
-    const swipeThreshold = 60;
-    if (touchEndX < touchStartX - swipeThreshold) {
-      // Swipe Left -> Next Page
-      if (currentPageIndex < totalPages) {
-        goToPage(currentPageIndex + 1);
-      }
-    } else if (touchEndX > touchStartX + swipeThreshold) {
-      // Swipe Right -> Previous Page
-      if (currentPageIndex > 1) {
-        goToPage(currentPageIndex - 1);
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    const swipeThreshold = 50;
+
+    // Ensure horizontal swipe is dominant over vertical scrolling
+    if (Math.abs(deltaX) > swipeThreshold && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+      if (deltaX < 0) {
+        // Swipe Left -> Next Page
+        if (currentPageIndex < totalPages) {
+          goToPage(currentPageIndex + 1);
+        }
+      } else {
+        // Swipe Right -> Previous Page
+        if (currentPageIndex > 1) {
+          goToPage(currentPageIndex - 1);
+        }
       }
     }
   }
