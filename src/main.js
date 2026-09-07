@@ -5,7 +5,7 @@
 import { ParticleEngine } from './particles.js';
 import { CustomAudioPlayer } from './audioPlayer.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   // Initialize Particle Engine
   const particles = new ParticleEngine('particle-canvas');
 
@@ -66,10 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update Dots indicator
     Object.keys(dots).forEach((pageNumStr) => {
       const pageNum = parseInt(pageNumStr, 10);
-      if (pageNum === targetPageNum) {
-        dots[pageNum].classList.add('active');
-      } else {
-        dots[pageNum].classList.remove('active');
+      if (dots[pageNum]) {
+        if (pageNum === targetPageNum) {
+          dots[pageNum].classList.add('active');
+        } else {
+          dots[pageNum].classList.remove('active');
+        }
       }
     });
 
@@ -91,16 +93,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Event Listeners for Navigation Buttons
   if (btnToPage2) {
-    btnToPage2.addEventListener('click', () => {
+    btnToPage2.addEventListener('click', (e) => {
+      e.preventDefault();
       goToPage(2);
     });
   }
 
   if (btnToPage3) {
-    btnToPage3.addEventListener('click', () => {
+    btnToPage3.addEventListener('click', (e) => {
+      e.preventDefault();
       goToPage(3);
     });
   }
+
+  // Navigation dots click listeners
+  Object.keys(dots).forEach((pageNumStr) => {
+    const pageNum = parseInt(pageNumStr, 10);
+    if (dots[pageNum]) {
+      dots[pageNum].style.cursor = 'pointer';
+      dots[pageNum].addEventListener('click', () => {
+        goToPage(pageNum);
+      });
+    }
+  });
 
   // Keyboard Navigation Support (Arrow keys)
   document.addEventListener('keydown', (e) => {
@@ -120,12 +135,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let touchEndX = 0;
 
   document.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
   }, { passive: true });
 
   document.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }
   }, { passive: true });
 
   function handleSwipe() {
@@ -142,4 +161,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
+
